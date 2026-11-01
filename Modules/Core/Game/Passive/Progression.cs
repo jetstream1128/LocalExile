@@ -66,6 +66,8 @@ static partial class Game
             conn.Waypoints.UnionWith(save?.Waypoints ?? []);
             conn.Visited.UnionWith(save?.Visited ?? []);
             conn.QuestFlags = [.. save?.QuestFlags ?? [], .. Quests.EveryCharacter];
+            // The league's (SetLeagueQuestFlags): every character of the account in this league shares them.
+            conn.LeagueQuestFlags.UnionWith(PersonalStashOf(conn).LeagueQuestFlags);
             conn.ExtraPassivePoints = save?.ExtraPassivePoints ?? 0;
             conn.RefundPoints = save?.RefundPoints ?? 0;
             RestoreGod(conn);
